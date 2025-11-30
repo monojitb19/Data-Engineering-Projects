@@ -16,7 +16,7 @@
   },
   {
     "p_rel_url": "monojitb19/Data-Engineering-Projects/refs/heads/main/Fabric/AdventureWorks/Datasets/AdventureWorks_Product_Subcategories.csv",
-    "p_sink_folder": "Product_Subcategories",
+    "p_sink_folder": "AdventureWorks_Product_Subcategories",
     "p_sink_file": "AdventureWorks_Product_Subcategories.csv"
   },
   {
