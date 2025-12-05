@@ -121,7 +121,7 @@ The Gold layer creates a dimensional star schema optimized for analytics.
 
 ---
 
-## 📊 Semantic Model & Power BI
+## Semantic Model & Power BI
 
 After the Gold warehouse is built, the master pipeline refreshes the Semantic Model, which feeds the Power BI Report.
 
@@ -140,7 +140,7 @@ After the Gold warehouse is built, the master pipeline refreshes the Semantic Mo
 
 ---
 
-## 🔁 Master Orchestration Pipeline
+## Master Orchestration Pipeline
 
 **Pipeline:** `pipeline_00_Master_Orchestration`
 
