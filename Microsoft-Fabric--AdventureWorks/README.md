@@ -15,7 +15,7 @@ The architecture follows the Medallion design pattern:
 The entire solution operates within Microsoft Fabric's ecosystem, showcasing true end-to-end functionality in a single integrated platform.
 
 ## Architecture Diagram
-![Microsoft Fabric Architecture](./Microsoft-Fabric--AdventureWorks/Fabric_Diagram.png)
+![Microsoft Fabric Architecture](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Fabric_Diagram.png)
 
 ## Datasets Used
 
@@ -46,8 +46,8 @@ AdventureWorks CSV datasets stored in GitHub:
 **Output:** Raw data stored in the Lakehouse file system exactly as received.
 
 ### Pipeline Architecture
-![Bronze Layer Pipeline A](./Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_01_Bronze_GitData_Ingestion.png)
-![Bronze Layer Pipeline B](./Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_01_Bronze_GitData_Ingestion_b.png)
+![Bronze Layer Pipeline A](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_01_Bronze_GitData_Ingestion_a.png)
+![Bronze Layer Pipeline B](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_01_Bronze_GitData_Ingestion_b.png)
 <br>*Pipeline orchestration showing Lookup activity feeding into ForEach loop for parallel CSV ingestion*
 
 ---
@@ -88,7 +88,7 @@ Each file is cleaned, validated, enriched, and converted into optimized Delta La
 - Prepare surrogate date keys
 
 ### Pipeline Architecture
-![Silver Layer Pipeline](./Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_02_Silver_Transformations.png)
+![Silver Layer Pipeline](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_02_Silver_Transformations.png)
 <br>*Pipeline executing PySpark notebooks in sequence to transform raw data into Delta Lake tables*
 
 ---
@@ -116,7 +116,7 @@ The Gold layer creates a dimensional star schema optimized for analytics.
 - Computed metrics (margin, markup, age groups, price bands)
 
 ### Pipeline Architecture
-![Gold Layer Pipeline](./Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_03_Gold_Transformations.png)
+![Gold Layer Pipeline](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_03_Gold_Transformations.png)
 <br>*Pipeline executing stored procedures to build star schema dimensional model in Fabric Warehouse*
 
 ---
@@ -154,7 +154,7 @@ Silver_to_Gold
      ↓
 Semantic Model Refresh
 ```
-![Master Orchestration Pipeline](./Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_00_Master_Orchestration.png)
+![Master Orchestration Pipeline](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_00_Master_Orchestration.png)
 
 ---
 
