@@ -58,34 +58,33 @@ AdventureWorks CSV datasets stored in GitHub:
 
 **Technology:** PySpark Notebooks + Delta Lake tables
 
-Each file is cleaned, validated, enriched, and converted into optimized Delta Lake tables.
+The Silver layer takes raw data from the Bronze layer and turns it into clean, reliable, and analytics-ready tables.  
+Each dataset is corrected, standardized, and prepared so the Gold layer can easily build the star schema.
 
-### ✔ DimCalendar (PySpark)
-- Convert string → date
-- Create Year, Month, Quarter, Week
-- Add Day/Month names
-- Add IsWeekend flag
+### DimCalendar
+- Converts raw date text into real dates  
+- Adds useful calendar fields (year, month, quarter, weekday, etc.)  
+- Adds friendly labels like month names and weekend indicators  
 
-### ✔ DimCustomer
-- Clean emails, gender, marital status
-- Create FullName
-- Derive Age, AgeGroup
-- Normalize strings
+### DimCustomer
+- Cleans customer details such as emails, income, and birthdates  
+- Builds a full name for each customer  
+- Removes duplicate records to keep one row per customer  
 
-### ✔ DimProduct
-- Join Products + Subcategories + Categories
-- Add ColorGroup, SizeGroup
-- Compute Margin, MarkupPct, PriceBand
 
-### ✔ DimTerritories
-- Standardize region/country names
-- Create TerritoryFullName
-- Add IsNorthAmerica flag
+### DimProduct
+- Extracts product group information from the SKU  
+- Removes duplicate products  
 
-### ✔ FactSales
-- Merge 2015–2017 sales
-- Standardize date formats
-- Prepare surrogate date keys
+### DimReturns
+- Converts return dates into proper formats  
+- Ensures product, territory, and quantity fields are valid numbers  
+
+### FactSales
+- Combines multiple years of sales data into one clean dataset  
+- Converts all date fields into proper date types  
+- Standardizes keys and numeric fields  
+- Performs basic quality checks before loading  
 
 ### Pipeline Architecture
 ![Silver Layer Pipeline](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_02_Silver_Transformations.png)
@@ -99,21 +98,48 @@ Each file is cleaned, validated, enriched, and converted into optimized Delta La
 
 **Technology:** Warehouse Stored Procedures
 
-The Gold layer creates a dimensional star schema optimized for analytics.
+The Gold Layer provides a curated, analytics-ready star schema designed for reporting, BI models, and advanced analytics. Data is fully transformed, conformed, and enriched to support high-performance queries in Power BI and downstream consumers.
 
-**Tables include:**
-- ✔ gold.DimDate
-- ✔ gold.DimCustomer
-- ✔ gold.DimProduct
-- ✔ gold.DimTerritory
-- ✔ gold.FactInternetSales
 
-**Highlights:**
-- Surrogate keys (YYYYMMDD) for date dimensions
-- Dimensional attributes for segmentation
-- Fact table contains grain: OrderNumber + OrderLineItem
-- Foreign keys link all dimensions
-- Computed metrics (margin, markup, age groups, price bands)
+### Gold Layer Tables
+
+#### Dimension Tables
+- `gold.DimCalendar` — Full date intelligence including year, month, day, quarter, and weekday attributes  
+- `gold.DimCustomer` — Customer demographics, segmentation logic, and behavioral attributes  
+- `gold.DimProduct` — Product details, standardized groupings, price bands, margin and markup calculations  
+- `gold.DimProductSubcategories` — Product subcategory hierarchy  
+- `gold.DimProductCategories` — Product category hierarchy  
+- `gold.DimTerritories` — Geographic and regional sales mapping  
+- `gold.DimReturns` — Return activity by date, product, and territory  
+
+#### Fact Table
+- `gold.FactSales` — Transaction-level sales fact  
+  - **Grain:** OrderNumber + OrderLineItem  
+  - Conforms to all dimension tables through shared keys
+
+
+### Key Features of the Gold Layer
+
+#### Analytics-Optimized Star Schema
+- Denormalized dimension and fact structure for fast BI performance  
+- Clear modeling boundaries for easier semantic model development  
+- Conformed keys allow consistent slicing across all dimensions  
+
+#### Business Logic and Derived Attributes
+- Date intelligence fields such as surrogate keys, year-month formats, and weekend indicators  
+- Customer segmentation including age bands, income categories, and value groups  
+- Product enhancements including color grouping, size classification, price bands, and profitability metrics  
+
+#### Operational Design
+- All tables are generated through stored procedures  
+- Each procedure follows a consistent pattern:
+  1. Drop the existing table  
+  2. Rebuild from Silver layer sources  
+  3. Apply transformations and business rules  
+
+
+### Outcome
+A clean, governed, and analytics-ready data model that supports dashboards, advanced analytics, and enterprise reporting with consistent definitions and predictable performance.
 
 ### Pipeline Architecture
 ![Gold Layer Pipeline](https://raw.githubusercontent.com/monojitb19/Data-Engineering-Projects/refs/heads/main/Microsoft-Fabric--AdventureWorks/Pipeline-Snaps/Pipeline_03_Gold_Transformations.png)
